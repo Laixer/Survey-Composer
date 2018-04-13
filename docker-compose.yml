@@ -33,7 +33,8 @@ services:
       - TIMEZONE=Europe/Amsterdam
       - DATABASE_URL=sqlite:///db/application.sqlite3
       - MONGODB_URL=mongodb://db:27017/
-      - VERSION=3.0.1
       - LOGFILE=logs/persistent.log
+    env_file:
+      - .env
     links:
       - db

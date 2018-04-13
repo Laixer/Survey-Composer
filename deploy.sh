@@ -17,11 +17,13 @@ if [ -z $BRANCH ]; then
 fi
 
 # Checkout branch
-git --git-dir="$DIRREP/.git" fetch
-git --git-dir="$DIRREP/.git" checkout .
-git --git-dir="$DIRREP/.git" checkout $BRANCH
-git --git-dir="$DIRREP/.git" checkout .
-git --git-dir="$DIRREP/.git" pull
+pushd $DIRREP
+git fetch
+git checkout .
+git checkout $BRANCH
+git checkout .
+git pull
+popd
 
 # Denote version
 rm -rf .env VERSION
@@ -36,3 +38,6 @@ EOL
 systemctl stop docker-compose-app
 /usr/local/bin/docker-compose build
 systemctl start docker-compose-app
+
+# Remove unused containers
+docker image prune -f
