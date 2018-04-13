@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  proxy: # Web proxy container
+    image: nginx:alpine
+    volumes:
+      - ./nginx/:/etc/nginx/
+      - /media/<volume>/master/static/:/static/
+    ports:
+      - 80:80
+      - 443:443
+    links:
+      - app
+  
+  db: # Database container
+    image: mongo
+    volumes:
+      - /media/<volume>/master/data/db/:/data/db/
+ 
+  app: # Web application container
+    build: ../braynz-online-platform/
+    command: >
+      bash -c "python manage.py collectstatic --noinput
+      && python manage.py check
+      && python manage.py migrate
+      && uwsgi /etc/uwsgi/apps-enabled/uwsgi.ini"
+    volumes:
+      - /media/<volume>/master/static/:/app/static_cache/
+      - /media/<volume>/master/db/:/app/db/
+      - /media/<volume>/master/logs/:/app/logs/
+    environment:
+      - STATIC_ROOT=/app/static_cache
+      - TIMEZONE=Europe/Amsterdam
+      - DATABASE_URL=sqlite:///db/application.sqlite3
+      - MONGODB_URL=mongodb://db:27017/
+      - VERSION=3.0.1
+      - LOGFILE=logs/persistent.log
+    links:
+      - db
