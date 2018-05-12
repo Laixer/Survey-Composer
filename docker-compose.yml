@@ -6,6 +6,7 @@ services:
     volumes:
       - ./nginx/:/etc/nginx/
       - /media/<volume>/master/static/:/static/
+      - /media/<volume>/master/media/:/media/
     ports:
       - 80:80
       - 443:443
@@ -26,10 +27,12 @@ services:
       && uwsgi /etc/uwsgi/apps-enabled/uwsgi.ini"
     volumes:
       - /media/<volume>/master/static/:/app/static_cache/
+      - /media/<volume>/master/media/:/app/media_cache/
       - /media/<volume>/master/db/:/app/db/
       - /media/<volume>/master/logs/:/app/logs/
     environment:
       - STATIC_ROOT=/app/static_cache
+      - MEDIA_ROOT=/app/media_cache
       - TIMEZONE=Europe/Amsterdam
       - DATABASE_URL=sqlite:///db/application.sqlite3
       - MONGODB_URL=mongodb://db:27017/
