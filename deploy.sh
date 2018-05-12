@@ -37,9 +37,8 @@ VERSION=${GIT_VERSION}
 EOL
 cp VERSION $DIRREP
 
-systemctl stop docker-compose-app
 /usr/local/bin/docker-compose build
-systemctl start docker-compose-app
+systemctl restart docker-compose-app
 
 # Remove unused containers
 docker image prune -f
