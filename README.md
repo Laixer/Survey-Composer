@@ -19,8 +19,8 @@
 - mkdir -p /media/<volume>/master/data/db/
 - Checkout repo in /srv/ in correct branch
 - Checkout survey-composer repo in /srv/
-- Update docker-compose.yml
-- Update nginx/proxy.conf
+- Copy `example.docker-compose.yml` to `docker-compose.yml` and update
+- Update nginx/proxy.conf with SSL files
 - Install systemd docker-compose-app service
   - ./systemd-inst.sh
 - Run deployment
