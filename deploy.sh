@@ -3,6 +3,7 @@
 REPOSITORY=braynz-online-platform
 BRANCH=$1
 DIRREP="../$REPOSITORY"
+ORIGIN="origin"
 
 # Check if repository directory exist
 if [ ! -d $DIRREP ]; then
@@ -18,11 +19,11 @@ fi
 
 # Checkout branch
 pushd $DIRREP
-git fetch
+git fetch $ORIGIN
 git checkout .
 git checkout $BRANCH
 git checkout .
-git pull
+git pull $ORIGIN $BRANCH
 popd
 
 # Denote version
