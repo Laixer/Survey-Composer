@@ -5,8 +5,8 @@ services:
     image: nginx:alpine
     volumes:
       - ./nginx/:/etc/nginx/
-      - /media/<volume>/master/static/:/static/
-      - /media/<volume>/master/media/:/media/
+      - /media/volume/master/static/:/static/
+      - /media/volume/master/media/:/media/
     ports:
       - 80:80
       - 443:443
@@ -16,7 +16,7 @@ services:
   db: # Database container
     image: mongo
     volumes:
-      - /media/<volume>/master/data/db/:/data/db/
+      - /media/volume/master/data/db/:/data/db/
  
   app: # Web application container
     build: ../braynz-online-platform/
@@ -26,10 +26,10 @@ services:
       && python manage.py migrate
       && uwsgi /etc/uwsgi/apps-enabled/uwsgi.ini"
     volumes:
-      - /media/<volume>/master/static/:/app/static_cache/
-      - /media/<volume>/master/media/:/app/media_cache/
-      - /media/<volume>/master/db/:/app/db/
-      - /media/<volume>/master/logs/:/app/logs/
+      - /media/volume/master/static/:/app/static_cache/
+      - /media/volume/master/media/:/app/media_cache/
+      - /media/volume/master/db/:/app/db/
+      - /media/volume/master/logs/:/app/logs/
     environment:
       - STATIC_ROOT=/app/static_cache
       - MEDIA_ROOT=/app/media_cache
