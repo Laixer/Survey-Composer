@@ -4,6 +4,7 @@ REPOSITORY=braynz-online-platform
 BRANCH=$1
 DIRREP="../$REPOSITORY"
 ORIGIN="origin"
+DEFDESTPATH="$DIRREP/survey/iat/define.py"
 
 # Check if repository directory exist
 if [ ! -d $DIRREP ]; then
@@ -17,6 +18,11 @@ if [ -z $BRANCH ]; then
   exit 1
 fi
 
+if [ ! -f define.py ]; then
+  echo "Define source not found"
+  exit 1
+fi
+
 # Checkout branch
 pushd $DIRREP
 git fetch $ORIGIN
@@ -25,6 +31,9 @@ git checkout $BRANCH
 git checkout .
 git pull $ORIGIN $BRANCH
 popd
+
+# Create the define file
+cp ./define.py $DEFDESTPATH
 
 # Denote version
 rm -rf .env VERSION

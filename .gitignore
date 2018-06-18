@@ -1,3 +1,5 @@
 VERSION
 **.crt
 **.key
+**.csr
+docker-compose.yml
