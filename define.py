@@ -12,4 +12,4 @@ class Define(Enum):
 	APP_NAME = ''
 	APP_URL = ''
 	APP_THEME = ''
-
+	ENABLED_TYPES = []
