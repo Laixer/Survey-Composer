@@ -5,11 +5,13 @@ services:
     image: nginx:alpine
     volumes:
       - ./nginx/:/etc/nginx/
+      - /media/volume/master/logs/:/logs/
       - /media/volume/master/static/:/static/
       - /media/volume/master/media/:/media/
     ports:
       - 80:80
       - 443:443
+      - 8443:8443
     links:
       - app
   
