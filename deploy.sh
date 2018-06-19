@@ -26,9 +26,8 @@ fi
 # Checkout branch
 pushd $DIRREP
 git fetch $ORIGIN
-git checkout .
+git clean -f
 git checkout $BRANCH
-git checkout .
 git pull $ORIGIN $BRANCH
 popd
 
